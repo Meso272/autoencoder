@@ -137,7 +137,7 @@ def get_data(file_name):
         record_bytes = tf.decode_raw(data_node, tf.float32)
         #print(record_bytes.shape)
         data_num = sess.run(record_bytes, {data_node: data})
-        data_num=tf.cast(data_num,tf.float64)
+        data_num=np.astype(data_num,np.float64)
         print(len(data_num))
         print (max(data_num))
         print (min(data_num))
