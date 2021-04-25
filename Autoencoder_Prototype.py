@@ -1315,10 +1315,13 @@ if args.decompress != None:
             dvalue_index += 1
 
     # Write the values from the decoder to a file
+    '''
     k = open(file_name + ".txt", "w+")
     for x in one_dimen_p:
         k.write(str(x))
         k.write("\n")
+    '''
+    np.array(one_dimen_p,dtype=np.float32).tofile(file_name + ".d")
 
     end_time = time.time()
     decompression_time = end_time - start_time
@@ -1326,7 +1329,7 @@ if args.decompress != None:
     print()
     print("Decompression complete!")
     print()
-    print("The compressed file %s has been successfully decompressed to file %s." % (file_name, (file_name + ".txt")))
+    print("The compressed file %s has been successfully decompressed to file %s." % (file_name, (file_name + ".d")))
     print()
     print("Decompression Time: %f seconds" % decompression_time)
     print()
