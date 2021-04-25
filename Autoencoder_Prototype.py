@@ -139,8 +139,8 @@ def get_data(file_name):
         data_num = sess.run(record_bytes, {data_node: data})
         data_num=tf.cast(data_num,tf.float64)
         print(data_num.shape)
-        print (tf.maximum(data_num))
-        print (tf.minimum(data_num))
+        print (tf.reduce_max(data_num))
+        print (tf.reduce_min(data_num))
     if args.transfer != None:
         transfer_size = int(input("Please enter tne number of elements from the transfer dataset to use for training: "))
         data_num = data_num[:transfer_size]
@@ -165,7 +165,8 @@ def normalize_data(data_num):
 
     # Using the previously generated modifications_all list, multiply (or, when modifications_all[i] is negative, divide) the values in data_num to ensure that they are either 0 or in the range [0.01, 0.1)
     data_num = [data_num[i] * (10 ** modifications_all[i]) for i in range(data_num_size)]
-
+    print(tf.reduce_max(data_num))
+    print(tf.reduce_min(data_num))
     # In order to make the modifications list more space-efficient, make it so that it does not contain any consecutive numbers
     # Instead, each non-repeating number will be stored in modifications, and the number of times that that value appears consecutively in modifications_all will be in strides
     # For example, if modifications_all is [3, 3, 3, 4, 5, 5, 5, 5], then the updated modifications will be [3, 4, 5] strides will be [3, 1, 4] (representing the number of times that each value of modifications_all repeats consecutively)
