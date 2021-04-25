@@ -116,7 +116,7 @@ class Bitmap(object):
 
 
 # Convert the input data into a vector of numbers; the vector of numbers (data_num) is returned
-def get_data(file_name):
+def get_data(file_name,z=False):
     f = open(file_name, "rb")
     data = f.read()
     f.close()
@@ -134,13 +134,18 @@ def get_data(file_name):
 
     # If the input file is a binary file
     else:
-        record_bytes = tf.decode_raw(data_node, tf.float32)
+        if z:
+            record_bytes = tf.decode_raw(data_node, tf.float64)
         #print(record_bytes.shape)
-        data_num = sess.run(record_bytes, {data_node: data})
-        data_num=data_num.astype(np.float64)
-        print(len(data_num))
-        print (max(data_num))
-        print (min(data_num))
+            data_num = sess.run(record_bytes, {data_node: data})
+        else:
+            record_bytes = tf.decode_raw(data_node, tf.float32)
+        #print(record_bytes.shape)
+            data_num = sess.run(record_bytes, {data_node: data})
+            data_num=data_num.astype(np.float64)
+            print(len(data_num))
+            print (max(data_num))
+            print (min(data_num))
     if args.transfer != None:
         transfer_size = int(input("Please enter tne number of elements from the transfer dataset to use for training: "))
         data_num = data_num[:transfer_size]
@@ -1156,7 +1161,7 @@ if args.decompress != None:
         sys.exit()
 
     # Store the data from the file to decompress in data_num
-    data_num = get_data(file_name)
+    data_num = get_data(file_name,z=True)
 
     # Get the size of data_num and store it in data_num_size
     size = tf.size(data_num)
@@ -1302,8 +1307,8 @@ if args.decompress != None:
         # Run the deocder, which will return the output of the neural network (this represents the decompressed values of the input data)
         # Store the result in p
         p = sess.run(decoder_op, {Z_points: batch_xs})
-        print(max(p))
-        print(min(p))
+        print(np.max(p))
+        print(np.min(p))
          
         # For each predicted value, undo the modification that had been done on the original value of that prediction if necessary and append the result (as a float) to the ppoints array
         for r in range(np.size(p, 0)):
@@ -1313,8 +1318,8 @@ if args.decompress != None:
                     ppoints.append(float(p[r][s]))
 
     one_dimen_p = ppoints.tolist()
-    print(max(one_dimen_p))
-    print(min(one_dimen_p))
+    print(np.max(one_dimen_p))
+    print(np.min(one_dimen_p))
     
     # For all the values in the dataset, if the index is in dindex (represented by the bitmap), then add the dvalue back to the predicted value
     dvalue_index = 0
