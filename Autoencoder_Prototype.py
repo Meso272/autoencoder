@@ -135,9 +135,12 @@ def get_data(file_name):
     # If the input file is a binary file
     else:
         record_bytes = tf.decode_raw(data_node, tf.float32)
-        print(record_bytes.shape)
+        #print(record_bytes.shape)
         data_num = sess.run(record_bytes, {data_node: data})
+        data_num=tf.float64(data_num)
         print(data_num.shape)
+        print (tf.max(data_num))
+        print (tf.min(data_num))
     if args.transfer != None:
         transfer_size = int(input("Please enter tne number of elements from the transfer dataset to use for training: "))
         data_num = data_num[:transfer_size]
@@ -1298,7 +1301,7 @@ if args.decompress != None:
         # Run the deocder, which will return the output of the neural network (this represents the decompressed values of the input data)
         # Store the result in p
         p = sess.run(decoder_op, {Z_points: batch_xs})
-
+         
         # For each predicted value, undo the modification that had been done on the original value of that prediction if necessary and append the result (as a float) to the ppoints array
         for r in range(np.size(p, 0)):
             for s in range(np.size(p, 1)):
@@ -1322,6 +1325,8 @@ if args.decompress != None:
         k.write(str(x))
         k.write("\n")
     '''
+    print(max(one_dimen_p))
+    print(min(one_dimen_p))
     np.array(one_dimen_p,dtype=np.float32).tofile(file_name + ".d")
 
     end_time = time.time()
