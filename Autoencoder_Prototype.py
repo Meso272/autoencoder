@@ -1302,6 +1302,8 @@ if args.decompress != None:
         # Run the deocder, which will return the output of the neural network (this represents the decompressed values of the input data)
         # Store the result in p
         p = sess.run(decoder_op, {Z_points: batch_xs})
+        print(max(p))
+        print(min(p))
          
         # For each predicted value, undo the modification that had been done on the original value of that prediction if necessary and append the result (as a float) to the ppoints array
         for r in range(np.size(p, 0)):
@@ -1311,7 +1313,9 @@ if args.decompress != None:
                     ppoints.append(float(p[r][s]))
 
     one_dimen_p = ppoints.tolist()
-
+    print(max(one_dimen_p))
+    print(min(one_dimen_p))
+    
     # For all the values in the dataset, if the index is in dindex (represented by the bitmap), then add the dvalue back to the predicted value
     dvalue_index = 0
     for a in range(len(one_dimen_p)):
