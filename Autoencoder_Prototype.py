@@ -134,7 +134,7 @@ def get_data(file_name):
 
     # If the input file is a binary file
     else:
-        record_bytes = tf.decode_raw(data_node, tf.float64)
+        record_bytes = tf.decode_raw(data_node, tf.float32)
         data_num = sess.run(record_bytes, {data_node: data})
 
     if args.transfer != None:
@@ -153,7 +153,7 @@ def normalize_data(data_num):
     # Go through each element in the dataset
     for i in range(data_num_size):
         try:
-            modifications_all[i] = (math.floor(math.log10(data_num[i])) + 2) * -1	# Note: If using a version of Python where math.floor does not return an int, then the return value of math.floor may need to be explicitly converted to an int before making further computations
+            modifications_all[i] = (int(math.floor(math.log10(data_num[i]))) + 2) * -1	# Note: If using a version of Python where math.floor does not return an int, then the return value of math.floor may need to be explicitly converted to an int before making further computations
 
         # If a ValueError is raised, assume the current value is 0. Set modifications_all[i] to 0 (indicating that this number was not multiplied or divided by 10)
         except ValueError:
