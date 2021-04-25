@@ -362,11 +362,11 @@ if args.training != None:
     for epoch in range(training_epochs):
         print("Epoch %4d" % epoch)
         bar.update(epoch + 1)     # Update the progress bar
-
+        '''
         if(epoch % display == 0):
             
             print("Epoch %4d" % epoch, end='\t', file=error_log)
-
+        '''
         index = 0  # Tracks the index of data_num, the vector of numbers
 
         for i in range(total_batch):
@@ -377,6 +377,7 @@ if args.training != None:
             optimizer_sum += (temp2 - temp1)
 
             # If the current epoch is one that should be printed to the file (this happens every "display" number of epochs and on the last epoch)
+            '''
             if epoch % display == 0 or epoch == (training_epochs - 1):
                 # Using the most recently updated weights and biases, send the current batch_xs through the encoder and decoder; the predicted values from the decoder will be stored in p
                 temp1 = time.time()
@@ -439,7 +440,7 @@ if args.training != None:
                             break
                 temp2 = time.time()
                 error_organizing_sum += temp2 - temp1
-
+   
         if epoch % display == 0 or epoch == (training_epochs - 1):
             print("For the whole data set, Error_0: %.8f\tError_A: %.8f\tError_B: %.8f\tError_C: %.8f\tError_D: %.8f\tError_E: %.8f\tError_F: %.8f\tError_mean: %.8f\t" % ((error_0 / data_num_size), (error_A / data_num_size), (error_B / data_num_size), (error_C / data_num_size), (error_D / data_num_size), (error_E / data_num_size), (error_F / data_num_size), (error_sum / data_num_size)), file=error_log)
 
@@ -452,7 +453,7 @@ if args.training != None:
             error_E = 0    # if 0.1 <= error < 1(100%)
             error_F = 0    # if 1 <= error
             error_sum = 0
-
+        '''
     error_log.close()
 
     # Save the weight matrices and bias vectors
