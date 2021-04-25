@@ -139,8 +139,8 @@ def get_data(file_name):
         data_num = sess.run(record_bytes, {data_node: data})
         data_num=tf.cast(data_num,tf.float64)
         print(data_num.shape)
-        print (tf.max(data_num))
-        print (tf.min(data_num))
+        print (tf.maximum(data_num))
+        print (tf.minimum(data_num))
     if args.transfer != None:
         transfer_size = int(input("Please enter tne number of elements from the transfer dataset to use for training: "))
         data_num = data_num[:transfer_size]
