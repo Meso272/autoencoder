@@ -135,8 +135,9 @@ def get_data(file_name):
     # If the input file is a binary file
     else:
         record_bytes = tf.decode_raw(data_node, tf.float32)
+        print(record_bytes.shape)
         data_num = sess.run(record_bytes, {data_node: data})
-
+        print(data_num.shape)
     if args.transfer != None:
         transfer_size = int(input("Please enter tne number of elements from the transfer dataset to use for training: "))
         data_num = data_num[:transfer_size]
