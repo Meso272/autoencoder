@@ -51,7 +51,7 @@ training_epochs = 10000
 batch_size = 64
 n_input = 256
 
-display = 5000  # In the training step, results are printed to a file every "display" number of epochs (as well as on the last epoch)
+display = 100  # In the training step, results are printed to a file every "display" number of epochs (as well as on the last epoch)
 
 # Error definitions
 error_0 = 0    # Number of elements where the error from the prediction is 0
@@ -680,6 +680,7 @@ if args.transfer != None:
         bo_init_sum += temp2 - temp1
 
         if(epoch % display == 0):
+            print("Epoch %4d" % epoch)
             print("Epoch %4d" % epoch, end='\t', file=error_log)
 
         index = 0  # Tracks the index of data_num, the vector of numbers
