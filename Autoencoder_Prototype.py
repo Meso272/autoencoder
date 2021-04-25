@@ -360,11 +360,11 @@ if args.training != None:
     fill_bo_sum = temp2 - temp1
  
     for epoch in range(training_epochs):
-        
+        print("Epoch %4d" % epoch)
         bar.update(epoch + 1)     # Update the progress bar
 
         if(epoch % display == 0):
-            print("Epoch %4d" % epoch)
+            
             print("Epoch %4d" % epoch, end='\t', file=error_log)
 
         index = 0  # Tracks the index of data_num, the vector of numbers
