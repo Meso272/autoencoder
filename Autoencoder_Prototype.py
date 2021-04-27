@@ -1122,6 +1122,8 @@ if args.compress != None:
 
 
         os.system("sz_demo %s -1 %d 0.1 %d 0 1 " % (dvname,dlength,dlength))
+        dvfilename=dvname.split("/")[-1]
+        os.system("mv %s.0.1.sz3 %s.sz3;mv %s.0.1.sz3.out %s.sz3.out" % (dvfilename,dvname,dvfilename,dvname))
     else:
         dvarray = np.array(dvpoints, dtype='float16')
         dvfile.write(bytes(dvarray))
