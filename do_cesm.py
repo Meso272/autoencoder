@@ -3,7 +3,7 @@ import sys
 import numpy as np
 field=sys.argv[1]
 epoch=int(sys.argv[2])
-output=int(sys.argv[3])
+output=sys.argv[3]
 datafolder="/home/jliu447/lossycompression/cesm-multisnapshot-5fields/%s" % field
 trainfile="/home/jliu447/lossycompression/cesm-multisnapshot-5fields/%s/%s_0to49.dat" % (field,field)
 
