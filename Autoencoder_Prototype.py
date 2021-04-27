@@ -118,7 +118,7 @@ class Bitmap(object):
 
 
 # Convert the input data into a vector of numbers; the vector of numbers (data_num) is returned
-def get_data(file_name,z=False):
+def get_data(file_name,is_float=True):
     f = open(file_name, "rb")
     data = f.read()
     f.close()
@@ -136,7 +136,7 @@ def get_data(file_name,z=False):
 
     # If the input file is a binary file
     else:
-        if z:
+        if not is_float:
             record_bytes = tf.decode_raw(data_node, tf.float64)
         #print(record_bytes.shape)
             data_num = sess.run(record_bytes, {data_node: data})
@@ -1165,7 +1165,7 @@ if args.decompress != None:
         sys.exit()
 
     # Store the data from the file to decompress in data_num
-    data_num = get_data(file_name,z=True)
+    data_num = get_data(file_name,z=False)
 
     # Get the size of data_num and store it in data_num_size
     size = tf.size(data_num)
