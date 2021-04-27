@@ -27,6 +27,7 @@ parser.add_argument("-r", "--training", help="Train the weights and biases by sp
 parser.add_argument("-f", "--float", type=int,help="Is input float type.",default=1)
 parser.add_argument("-i", "--epoch", type=int,help="epoch.",default=100)
 parser.add_argument("-z", "--sz", type=int,help="Use sz on dvalue.",default=0)
+parser.add_argument("-se", "--szerror", type=FLOAT,help="SZ EB.",default=0.1)
 parser.add_argument("-t", "--transfer", help="Use a new training file based on existing weights and biases to generate new weights and biases.")
 parser.add_argument("-c", "--compress", help="Compress a file.")
 parser.add_argument("-e", "--error", help="Set the error bound.")
@@ -1120,10 +1121,10 @@ if args.compress != None:
         dvfile.close()
 
 
-
-        os.system("sz_demo %s -1 %d 0.1 %d 0 1 " % (dvname,dlength,dlength))
+        sze=args.szerror
+        os.system("sz_demo %s -1 %d %f %d 0 1 " % (dvname,dlength,sze,dlength))
         dvfilename=dvname.split("/")[-1]
-        os.system("mv %s.0.1.sz3 %s.sz3;mv %s.0.1.sz3.out %s.sz3.out" % (dvfilename,dvname,dvfilename,dvname))
+        os.system("mv %s.%f.sz3 %s.sz3;mv %s.%f.sz3.out %s.sz3.out" % (dvfilename,sze,dvname,dvfilename,sze,dvname))
     else:
         dvarray = np.array(dvpoints, dtype='float16')
         dvfile.write(bytes(dvarray))
@@ -1358,8 +1359,8 @@ if args.decompress != None:
         k.write(str(x))
         k.write("\n")
     '''
-    print(max(one_dimen_p))
-    print(min(one_dimen_p))
+    #print(max(one_dimen_p))
+    #print(min(one_dimen_p))
     if args.float:
         np.array(one_dimen_p,dtype=np.float32).tofile(file_name + ".d")
     else:
