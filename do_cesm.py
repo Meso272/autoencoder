@@ -7,6 +7,7 @@ output=sys.argv[3]
 mode=0# 0 all 1 train only 2 test only
 if (len(sys.argv)>=5):
     mode=int(sys.argv[4])
+print(mode)
 datafolder="/home/jliu447/lossycompression/cesm-multisnapshot-5fields/%s" % field
 trainfile="/home/jliu447/lossycompression/cesm-multisnapshot-5fields/%s/%s_0to49.dat" % (field,field)
 if(mode<2):
