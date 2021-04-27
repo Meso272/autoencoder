@@ -32,6 +32,8 @@ parser.add_argument("-t", "--transfer", help="Use a new training file based on e
 parser.add_argument("-c", "--compress", help="Compress a file.")
 parser.add_argument("-e", "--error", help="Set the error bound.")
 parser.add_argument("-d", "--decompress", help="Decompress a file.")
+parser.add_argument("-i", "--epoch", type=int,help="epoch.",default=100)
+parser.add_argument("-n", "--name", type=str,help="ckpt name.",default="wb")
 parser.add_argument("-o", "--output_error", help="Print error information. Note: This argument currently only works with compression.", action="store_true")
 args = parser.parse_args()
 
@@ -487,7 +489,7 @@ if args.training != None:
         "decoder_b2": biases['decoder_b2'],
         "decoder_b3": biases['decoder_b3']
     })
-    save_path = saver.save(sess, "./wb.ckpt", write_meta_graph=False)
+    save_path = saver.save(sess, "./%s.ckpt" % args.name, write_meta_graph=False)
     save_end = time.time()
 
     print("\n\nTraining complete!")
@@ -932,7 +934,7 @@ if args.compress != None:
     cost = tf.reduce_mean(tf.pow(delta, 2))
     cost_orig = tf.reduce_mean(tf.pow(delta_orig, 2))
 
-    saver.restore(sess, "./wb.ckpt")
+    saver.restore(sess, "./%s.ckpt" % args.name)
 
     # Write the modifications information to a file
     modifications_name = file_name + ".mod"
@@ -1224,7 +1226,7 @@ if args.decompress != None:
 
     y_pred = decoder_op
 
-    saver.restore(sess, "./wb.ckpt")
+    saver.restore(sess, "./%s.ckpt" % args.name)
 
     # Get the saved information for the modifications list
     with open(raw_file_name + ".mod", "rb") as f:
