@@ -373,7 +373,7 @@ if args.training != None:
     fill_bo_sum = temp2 - temp1
  
     for epoch in range(training_epochs):
-        print("Epoch %4d" % epoch)
+        #print("Epoch %4d" % epoch)
         bar.update(epoch + 1)     # Update the progress bar
         '''
         if(epoch % display == 0):
