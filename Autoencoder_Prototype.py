@@ -1121,7 +1121,7 @@ if args.compress != None:
 
 
 
-        os.system("sz_demo %s -1 %d 0.1" % (dvname,dlength))
+        os.system("sz_demo %s -1 %d 0.1 %d 0 1 " % (dvname,dlength,dlength))
     else:
         dvarray = np.array(dvpoints, dtype='float16')
         dvfile.write(bytes(dvarray))
