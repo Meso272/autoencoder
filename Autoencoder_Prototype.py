@@ -119,7 +119,7 @@ class Bitmap(object):
 
 
 # Convert the input data into a vector of numbers; the vector of numbers (data_num) is returned
-def get_data(file_name,is_float=True):
+def get_data(file_name,is_float=False):
     f = open(file_name, "rb")
     data = f.read()
     f.close()
