@@ -24,6 +24,8 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-r", "--training", help="Train the weights and biases by specifying a training file.")
+parser.add_argument("-f", "--float", help="Is input float type.",default=1)
+parser.add_argument("-i", "--epoch", help="epoch.",default=100)
 parser.add_argument("-t", "--transfer", help="Use a new training file based on existing weights and biases to generate new weights and biases.")
 parser.add_argument("-c", "--compress", help="Compress a file.")
 parser.add_argument("-e", "--error", help="Set the error bound.")
@@ -47,7 +49,7 @@ error_bound = 0
 if args.error != None:
     error_bound = float(args.error)
 
-training_epochs = 100
+training_epochs = args.epoch
 batch_size = 64
 n_input = 256
 
@@ -225,6 +227,7 @@ if args.training != None:
     cdt_sum = 0.0
     error_organizing_sum = 0.0
     bo_init_sum = 0.0
+    is_float=args.float
     print("\nTRAINING THE AUTOENCODER")
     print("---------------")
     file_name = args.training
@@ -236,7 +239,7 @@ if args.training != None:
         print("Error: File does not exist.")
         sys.exit()
 
-    data_num = get_data(file_name)
+    data_num = get_data(file_name,is_float)
 
     # TensorFlow Placeholders
     X = tf.placeholder("float", [None, None])	# Stores the normalized values from the input dataset
@@ -847,6 +850,7 @@ if args.compress != None:
     print("\nCOMPRESSING")
     print("---------------")
     file_name = args.compress
+    is_float=args.float
     print("File to compress: %s" % file_name)
 
     # Check to ensure that the file for compression exists. If it does not exist, print a message and exit the program.
@@ -855,7 +859,7 @@ if args.compress != None:
         print("Error: File does not exist.")
         sys.exit()
 
-    data_num = get_data(file_name)	# Get the data from the input file and store it in data_num
+    data_num = get_data(file_name,is_float)	# Get the data from the input file and store it in data_num
     original_data_num = np.copy(data_num)  # data_num will likely be modified, so make a copy of it and store it in original_data_num
     data_num, data_num_size, modifications, strides, mod_min, index = normalize_data(data_num)
 
@@ -1337,7 +1341,10 @@ if args.decompress != None:
     '''
     print(max(one_dimen_p))
     print(min(one_dimen_p))
-    np.array(one_dimen_p,dtype=np.float32).tofile(file_name + ".d")
+    if args.is_float:
+        np.array(one_dimen_p,dtype=np.float32).tofile(file_name + ".d")
+    else:
+        np.array(one_dimen_p,dtype=np.float64).tofile(file_name + ".d")
 
     end_time = time.time()
     decompression_time = end_time - start_time
