@@ -127,6 +127,7 @@ if (mode!=1):
             data[j+1][i-51][7]=psnr3
             data[j+1][i-51][8]=maxrerr3
             os.system("rm -f %s.txt" % pid)
+        os.system("rm -f %s*" % filepath)
 
     np.savetxt("%s_cr1.txt" % output,data[:,:,0],delimiter='\t')
     np.savetxt("%s_psnr1.txt" % output,data[:,:,1],delimiter='\t')

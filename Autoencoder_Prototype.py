@@ -32,7 +32,6 @@ parser.add_argument("-t", "--transfer", help="Use a new training file based on e
 parser.add_argument("-c", "--compress", help="Compress a file.")
 parser.add_argument("-e", "--error", help="Set the error bound.")
 parser.add_argument("-d", "--decompress", help="Decompress a file.")
-parser.add_argument("-i", "--epoch", type=int,help="epoch.",default=100)
 parser.add_argument("-n", "--name", type=str,help="ckpt name.",default="wb")
 parser.add_argument("-o", "--output_error", help="Print error information. Note: This argument currently only works with compression.", action="store_true")
 args = parser.parse_args()
