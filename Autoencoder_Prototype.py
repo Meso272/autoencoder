@@ -26,6 +26,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-r", "--training", help="Train the weights and biases by specifying a training file.")
 parser.add_argument("-f", "--float", type=int,help="Is input float type.",default=1)
 parser.add_argument("-i", "--epoch", type=int,help="epoch.",default=100)
+parser.add_argument("-z", "--sz", type=int,help="Use sz on dvalue.",default=0)
 parser.add_argument("-t", "--transfer", help="Use a new training file based on existing weights and biases to generate new weights and biases.")
 parser.add_argument("-c", "--compress", help="Compress a file.")
 parser.add_argument("-e", "--error", help="Set the error bound.")
@@ -1111,12 +1112,24 @@ if args.compress != None:
             ppoints[a] += dvpoints[dvcounter]
             dvcounter += 1
     
-    dvarray = np.array(dvpoints, dtype='float16')
+    if args.sz:
+        dvarray = np.array(dvpoints, dtype=np.float32)
+        dlength=dvarray.shape[0]
 
-    dvfile.write(bytes(dvarray))
+        dvfile.write(bytes(dvarray))
+        dvfile.close()
+
+
+
+        os.system("sz_demo %s -1 %d 0.1" % (dvname,dlength))
+    else:
+        dvarray = np.array(dvpoints, dtype='float16')
+        dvfile.write(bytes(dvarray))
+        dvfile.close()
+    
     dipoints.tofile(difile)
     difile.close()
-    dvfile.close()
+    
     zpoints.tofile(zfile)
     zfile.close()
 
