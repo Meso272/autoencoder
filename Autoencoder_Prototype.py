@@ -1261,9 +1261,13 @@ if args.decompress != None:
     # Get the saved dvalue information
     # This represents the difference between the original values and the predicted values for all the data numbers whose predicted value's error is greater than the error bound
     # If a predicted value's error is greater than the error bound, the difference is saved in dvalue
-    with open(raw_file_name + ".dvalue", "rb") as f:
-        dvalue = np.fromfile(f, dtype=np.float16)
+    if args.sz:
+        dvalue = np.fromfile(raw_file_name+".dvalue.sz3.out", dtype=np.float32)
         dvalue = np.float64(dvalue)
+    else:
+        with open(raw_file_name + ".dvalue", "rb") as f:
+            dvalue = np.fromfile(f, dtype=np.float16)
+            dvalue = np.float64(dvalue)
 
     # If mod_min (the lowest value of modifications) was negative, then the absolute value of that number was added to every value of modifications in the normalize_data function so that every value of modifications would be either 0 or positive. Now we add mod_min back to every number to return to the original values. (Since mod_min is negative, we are essentially subtracting the value that we previously added.)
     if mod_min < 0:
