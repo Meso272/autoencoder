@@ -1360,7 +1360,7 @@ if args.decompress != None:
     '''
     print(max(one_dimen_p))
     print(min(one_dimen_p))
-    if args.is_float:
+    if args.float:
         np.array(one_dimen_p,dtype=np.float32).tofile(file_name + ".d")
     else:
         np.array(one_dimen_p,dtype=np.float64).tofile(file_name + ".d")
