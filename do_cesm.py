@@ -10,7 +10,7 @@ if (len(sys.argv)>=5):
 datafolder="/home/jliu447/lossycompression/cesm-multisnapshot-5fields/%s" % field
 trainfile="/home/jliu447/lossycompression/cesm-multisnapshot-5fields/%s/%s_0to49.dat" % (field,field)
 if(mode<2):
-    os.system("python3 Autoencoder_Prototype.py -r %s -i %d" % (trainfile,epoch))
+    os.system("python3 Autoencoder_Prototype.py -r %s -i %d -n %s" % (trainfile,epoch,field))
     print("Train Over.")
 
 #ebs=[i*1e-4 for i in range(1,10,2)]+[i*1e-3 for i in range(1,10,2)]+[i*1e-2 for i in range(1,10,2)]+[0.1]
@@ -21,8 +21,8 @@ if (mode!=1):
     pid=str(os.getpid()).strip()
     data=np.zeros((len(ebs)+1,12,9),dtype=np.float32)
     for i in range(9):
-    data[1:,0,i]=ebs
-    data[0,1:,i]=idxrange
+        data[1:,0,i]=ebs
+        data[0,1:,i]=idxrange
 
     for i in range(52,63):
         filename="%s_%d.dat" % (field,i)
@@ -32,7 +32,7 @@ if (mode!=1):
         filepath=filepath+".positive"
         a.tofile(filepath)
         for j,eb in enumerate(ebs): 
-            os.system("python3 Autoencoder_Prototype.py -c %s -e %f" % (filepath,eb))
+            os.system("python3 Autoencoder_Prototype.py -c %s -e %f -n %s" % (filepath,eb,field))
             zpath=filepath+".z"
             dpath=zpath+".d"
             dvname=filepath.split("/")[-1]+".dvalue"
@@ -52,7 +52,7 @@ if (mode!=1):
             cr1=origsize/compressedsize
             os.system("rm -f %s.txt" % pid)   
 
-            os.system("python3 Autoencoder_Prototype.py -d %s" % zpath)
+            os.system("python3 Autoencoder_Prototype.py -d %s -n %s" % (zpath,field))
             os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
                 lines=f.read().splitlines()
@@ -84,7 +84,7 @@ if (mode!=1):
             os.system("rm -f %s.txt" % pid)
 
 
-            os.system("python3 Autoencoder_Prototype.py -d %s -z 1" % zpath)
+            os.system("python3 Autoencoder_Prototype.py -d %s -z 1 -n %s" % (zpath,field))
             os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
                 lines=f.read().splitlines()
@@ -117,7 +117,7 @@ if (mode!=1):
             os.system("rm -f %s.txt" % pid)
 
 
-            os.system("python3 Autoencoder_Prototype.py -d %s -z 1" % zpath)
+            os.system("python3 Autoencoder_Prototype.py -d %s -z 1 -n %s" % (zpath,field))
             os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
                 lines=f.read().splitlines()
