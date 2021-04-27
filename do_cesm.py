@@ -71,7 +71,7 @@ for i in range(52,63):
         with open ("%s.txt"%pid,"r") as f:
             lines=f.read().splitlines()
             for line in lines:
-                size,path=lines.split("\t")
+                size,path=line.split("\t")
                 size=float(size)
                 if path==filepath:
                     origsize=size
@@ -104,7 +104,7 @@ for i in range(52,63):
         with open ("%s.txt"%pid,"r") as f:
             lines=f.read().splitlines()
             for line in lines:
-                size,path=lines.split("\t")
+                size,path=line.split("\t")
                 size=float(size)
                 if path==filepath:
                     origsize=size
