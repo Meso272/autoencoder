@@ -1180,7 +1180,7 @@ if args.decompress != None:
         sys.exit()
 
     # Store the data from the file to decompress in data_num
-    data_num = get_data(file_name,z=False)
+    data_num = get_data(file_name,is_float=False)
 
     # Get the size of data_num and store it in data_num_size
     size = tf.size(data_num)
