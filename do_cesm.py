@@ -13,9 +13,10 @@ if(mode<2):
     os.system("python3 Autoencoder_Prototype.py -r %s -i %d -n %s" % (trainfile,epoch,field))
     print("Train Over.")
 
-#ebs=[i*1e-4 for i in range(1,10,2)]+[i*1e-3 for i in range(1,10,2)]+[i*1e-2 for i in range(1,10,2)]+[0.1]
+
 if (mode!=1):
-    ebs=[1e-2,1e-3]
+    #ebs=[1e-2,1e-3]
+    ebs=[i*1e-4 for i in range(1,10,2)]+[i*1e-3 for i in range(1,10,2)]+[i*1e-2 for i in range(1,10,2)]+[0.1]
     idxrange=[x for x in range(52,63)]
 
     pid=str(os.getpid()).strip()
