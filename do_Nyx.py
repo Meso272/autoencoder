@@ -2,7 +2,7 @@ import os
 import sys
 import numpy as np
 field=sys.argv[1]
-epoch=int(sys.argv[2])
+epoch=int(sys.argv[2])#epoch for error mode
 output=sys.argv[3]
 mode=0# 0 all 1 train only 2 test only
 if (len(sys.argv)>=5):
@@ -20,9 +20,14 @@ if(mode<2):
 
 
 if (mode!=1):
-    ebs=[1e-2,1e-3]
-    #ebs=[i*1e-4 for i in range(1,10,3)]+[i*1e-3 for i in range(1,10,3)]+[i*1e-2 for i in range(1,10,3)]+[0.1]
-    #idxrange=[x for x in range(52,63)]
+    #ebs=[1e-2,1e-3]
+    if epoch==0:
+        ebs=[i*1e-4 for i in range(1,10,2)]
+    elif epoch==1:
+        ebs=[i*1e-3 for i in range(1,10,2)]
+    else:
+        ebs=[i*1e-2 for i in range(1,8,2)]+[0.1]
+    
     idxrange=[0]
 
     pid=str(os.getpid()).strip()
