@@ -64,15 +64,18 @@ if (mode!=1):
             data[j+1][i-51][1]=psnr1
             data[j+1][i-51][2]=maxrerr1
             os.system("rm -f %s.txt" % pid)    
- 
+
+
+            a=np.fromfile(dvpath,dtype=np.float16)
+            dlength=a.shape[0]
+            a.astype(np.float32).tofile(dvpath)
             os.system("sz_demo %s -1 %d %f %d 0 1 " % (dvpath,dlength,0.1,dlength))
             os.system("mv %s.sz3 %s.sz3;mv %s.sz3.out %s.sz3.out" % (dvname,dvpath,dvname,dvpath))
         #os.system("sz_demo %s -1 %d %f %d 0 1 " % (dvname,dlength,sze,dlength))
             os.system("du -s %s*&>%s.txt" % (filepath,pid))
             origsize=0
             compressedsize=0
-            dvname=filepath.split("/")[-1]+".dvalue"
-            dvpath=filepath+".dvalue"
+            
             with open ("%s.txt"%pid,"r") as f:
                 lines=f.read().splitlines()
                 for line in lines:
@@ -104,8 +107,7 @@ if (mode!=1):
             os.system("du -s %s*&>%s.txt" % (filepath,pid))
             origsize=0
             compressedsize=0
-            dvname=filepath.split("/")[-1]+".dvalue"
-            dvpath=filepath+".dvalue"
+            
             with open ("%s.txt"%pid,"r") as f:
                 lines=f.read().splitlines()
                 for line in lines:
