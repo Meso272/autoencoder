@@ -76,6 +76,9 @@ if (mode!=1):
             a=np.fromfile(dvpath,dtype=np.float16)
             dlength=a.shape[0]
             a.astype(np.float32).tofile(dvpath)
+
+
+            '''
             os.system("sz_demo %s -1 %d %f %d 0 1 " % (dvpath,dlength,0.1,dlength))
             os.system("mv %s*.sz3 %s.sz3;mv %s*.sz3.out %s.sz3.out" % (dvname,dvpath,dvname,dvpath))
         #os.system("sz_demo %s -1 %d %f %d 0 1 " % (dvname,dlength,sze,dlength))
@@ -96,7 +99,7 @@ if (mode!=1):
             cr2=origsize/compressedsize
             os.system("rm -f %s.txt" % pid)
 
-
+      
             os.system("python3 Autoencoder_Prototype.py -d %s -z 1 -n %s" % (zpath,field))
             os.system("compareData -f %s %s&>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
@@ -109,7 +112,7 @@ if (mode!=1):
             data[j+1][i+1][4]=psnr2
             data[j+1][i+1][5]=maxrerr2
             os.system("rm -f %s.txt" % pid)
-
+            '''
 
             latent_eb=eb/coeff
             os.system("sz_demo %s -1 %d %f %d 0 1 " % (dvpath,dlength,eb,dlength))
@@ -149,9 +152,11 @@ if (mode!=1):
     np.savetxt("%s_cr1.txt" % output,data[:,:,0],delimiter='\t')
     np.savetxt("%s_psnr1.txt" % output,data[:,:,1],delimiter='\t')
     np.savetxt("%s_maxrerr1.txt" % output,data[:,:,2],delimiter='\t')
+    '''
     np.savetxt("%s_cr2.txt" % output,data[:,:,3],delimiter='\t')
     np.savetxt("%s_psnr2.txt" % output,data[:,:,4],delimiter='\t')
     np.savetxt("%s_maxrerr2.txt" % output,data[:,:,5],delimiter='\t')
+    '''
     np.savetxt("%s_cr3.txt" % output,data[:,:,6],delimiter='\t')
     np.savetxt("%s_psnr3.txt" % output,data[:,:,7],delimiter='\t')
     np.savetxt("%s_maxrerr3.txt" % output,data[:,:,8],delimiter='\t')
