@@ -16,7 +16,7 @@ if(mode<2):
 
 
 if (mode!=1):
-    ebs=[1e-1,1e-2,1e-3,1e-4]
+    ebs=[1e-2,1e-3]
     #ebs=[i*1e-4 for i in range(1,10,2)]+[i*1e-3 for i in range(1,10,2)]+[i*1e-2 for i in range(1,10,2)]+[0.1]
     #idxrange=[x for x in range(52,63)]
     idxrange=[x for x in range(52,53)]
@@ -57,7 +57,7 @@ if (mode!=1):
             os.system("rm -f %s.txt" % pid)   
 
             os.system("python3 Autoencoder_Prototype.py -d %s -n %s" % (zpath,field))
-            os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
+            os.system("compareData -f %s %s&>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
                 lines2=f.read().splitlines()
                 print(lines2)
@@ -94,7 +94,7 @@ if (mode!=1):
 
 
             os.system("python3 Autoencoder_Prototype.py -d %s -z 1 -n %s" % (zpath,field))
-            os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
+            os.system("compareData -f %s %s&>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
                 
                 lines4=f.read().splitlines()
@@ -108,7 +108,7 @@ if (mode!=1):
 
 
 
-            os.system("sz_demo %s -1 %d %f %d 0 1 " % (dvname,dlength,eb/10,dlength))
+            os.system("sz_demo %s -1 %d %f %d 0 1 " % (dvpath,dlength,eb/10,dlength))
             os.system("mv %s.sz3 %s.sz3;mv %s.sz3.out %s.sz3.out" % (dvname,dvpath,dvname,dvpath))
             os.system("du -s %s*&>%s.txt" % (filepath,pid))
             origsize=0
@@ -129,7 +129,7 @@ if (mode!=1):
 
 
             os.system("python3 Autoencoder_Prototype.py -d %s -z 1 -n %s" % (zpath,field))
-            os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
+            os.system("compareData -f %s %s&>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
                 lines6=f.read().splitlines()
                 print(lines6)
