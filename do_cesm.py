@@ -59,10 +59,10 @@ if (mode!=1):
             os.system("python3 Autoencoder_Prototype.py -d %s -n %s" % (zpath,field))
             os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
-                lines=f.read().splitlines()
-                print(lines)
-                psnr1=eval(lines[6].split(',')[0].split('=')[1])
-                maxrerr1=eval(lines[4].split('=')[1])
+                lines2=f.read().splitlines()
+                print(lines2)
+                psnr1=eval(lines2[6].split(',')[0].split('=')[1])
+                maxrerr1=eval(lines2[4].split('=')[1])
             data[j+1][i+1][0]=cr1
             data[j+1][i+1][1]=psnr1
             data[j+1][i+1][2]=maxrerr1
@@ -80,9 +80,9 @@ if (mode!=1):
             compressedsize=0
             
             with open ("%s.txt"%pid,"r") as f:
-                lines=f.read().splitlines()
-                print(lines)
-                for line in lines:
+                lines3=f.read().splitlines()
+                print(lines3)
+                for line in lines3:
                     size,path=line.split("\t")
                     size=float(size)
                     if path==filepath:
@@ -97,10 +97,10 @@ if (mode!=1):
             os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
                 
-                lines=f.read().splitlines()
-                print(lines)
-                psnr2=eval(lines[6].split(',')[0].split('=')[1])
-                maxrerr2=eval(lines[4].split('=')[1])
+                lines4=f.read().splitlines()
+                print(lines4)
+                psnr2=eval(lines4[6].split(',')[0].split('=')[1])
+                maxrerr2=eval(lines4[4].split('=')[1])
             data[j+1][i+1][3]=cr2
             data[j+1][i+1][4]=psnr2
             data[j+1][i+1][5]=maxrerr2
@@ -115,9 +115,9 @@ if (mode!=1):
             compressedsize=0
             
             with open ("%s.txt"%pid,"r") as f:
-                lines=f.read().splitlines()
-                print(lines)
-                for line in lines:
+                lines5=f.read().splitlines()
+                print(lines5)
+                for line in lines5:
                     size,path=line.split("\t")
                     size=float(size)
                     if path==filepath:
@@ -131,10 +131,10 @@ if (mode!=1):
             os.system("python3 Autoencoder_Prototype.py -d %s -z 1 -n %s" % (zpath,field))
             os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
-                lines=f.read().splitlines()
-                print(lines)
-                psnr3=eval(lines[6].split(',')[0].split('=')[1])
-                maxrerr3=eval(lines[4].split('=')[1])
+                lines6=f.read().splitlines()
+                print(lines6)
+                psnr3=eval(lines6[6].split(',')[0].split('=')[1])
+                maxrerr3=eval(lines6[4].split('=')[1])
             data[j+1][i+1][6]=cr3
             data[j+1][i+1][7]=psnr3
             data[j+1][i+1][8]=maxrerr3
