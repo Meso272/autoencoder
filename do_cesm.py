@@ -61,7 +61,7 @@ if (mode!=1):
                 psnr1=eval(lines[6].split(',')[0].split('=')[1])
                 maxrerr1=eval(lines[4].split('=')[1])
             data[j+1][i-51][0]=cr1
-            data[j+1][i-51][1]=psnr2
+            data[j+1][i-51][1]=psnr1
             data[j+1][i-51][2]=maxrerr1
             os.system("rm -f %s.txt" % pid)    
  
