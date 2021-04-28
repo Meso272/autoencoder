@@ -12,8 +12,8 @@ coeff=1
 if (len(sys.argv)>=6):
     coeff=float(sys.argv[5])
 
-datafolder="/home/jliu447/lossycompression/cesm-multisnapshot-5fields/%s" % field
-trainfile="/home/jliu447/lossycompression/cesm-multisnapshot-5fields/%s/%s_0to49.dat" % (field,field)
+datafolder="/home/jliu447/lossycompression/EXAFEL/extracted" 
+trainfile="/home/jliu447/lossycompression/EXAFEL/extracted/EXAFELtrain.dat"
 if(mode<2):
     os.system("python3 Autoencoder_Prototype.py -r %s -i %d -n %s" % (trainfile,epoch,field))
     print("Train Over.")
@@ -23,8 +23,7 @@ if (mode!=1):
     #ebs=[1e-2,1e-3]
     ebs=[i*1e-4 for i in range(1,10,2)]+[i*1e-3 for i in range(1,10,2)]+[i*1e-2 for i in range(1,10,2)]+[0.1]
     #idxrange=[x for x in range(52,63)]
-    idxrange=[x for x in range(52,63)]
-
+    idxrange=[x for x in range(300,352)]
     pid=str(os.getpid()).strip()
     data=np.zeros((len(ebs)+1,len(idxrange)+1,9),dtype=np.float32)
     for i in range(9):
@@ -32,7 +31,7 @@ if (mode!=1):
         data[0,1:,i]=idxrange
 
     for i,idx in enumerate(idxrange):
-        filename="%s_%d.dat" % (field,idx)
+        filename="group_renamed_%d.dat" % idx
         filepath=os.path.join(datafolder,filename)
         a=np.fromfile(filepath,dtype=np.float32)
         a=a-np.min(a)
