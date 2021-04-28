@@ -76,7 +76,7 @@ if (mode!=1):
             dlength=a.shape[0]
             a.astype(np.float32).tofile(dvpath)
             os.system("sz_demo %s -1 %d %f %d 0 1 " % (dvpath,dlength,0.1,dlength))
-            os.system("mv %s.sz3 %s.sz3;mv %s.sz3.out %s.sz3.out" % (dvname,dvpath,dvname,dvpath))
+            os.system("mv %s*.sz3 %s.sz3;mv %s*.sz3.out %s.sz3.out" % (dvname,dvpath,dvname,dvpath))
         #os.system("sz_demo %s -1 %d %f %d 0 1 " % (dvname,dlength,sze,dlength))
             os.system("du -s %s*&>%s.txt" % (filepath,pid))
             origsize=0
@@ -112,7 +112,7 @@ if (mode!=1):
 
             latent_eb=eb/coeff
             os.system("sz_demo %s -1 %d %f %d 0 1 " % (dvpath,dlength,eb,dlength))
-            os.system("mv %s.sz3 %s.sz3;mv %s.sz3.out %s.sz3.out" % (dvname,dvpath,dvname,dvpath))
+            os.system("mv %s*.sz3 %s.sz3;mv %s*.sz3.out %s.sz3.out" % (dvname,dvpath,dvname,dvpath))
             os.system("du -s %s*&>%s.txt" % (filepath,pid))
             origsize=0
             compressedsize=0
