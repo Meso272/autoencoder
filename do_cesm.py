@@ -18,6 +18,7 @@ if(mode<2):
 if (mode!=1):
     ebs=[1e-2,1e-3]
     #ebs=[i*1e-4 for i in range(1,10,2)]+[i*1e-3 for i in range(1,10,2)]+[i*1e-2 for i in range(1,10,2)]+[0.1]
+    #idxrange=[x for x in range(52,63)]
     idxrange=[x for x in range(52,53)]
 
     pid=str(os.getpid()).strip()
@@ -44,6 +45,7 @@ if (mode!=1):
             compressedsize=0
             with open ("%s.txt"%pid,"r") as f:
                 lines=f.read().splitlines()
+                print(lines)
                 for line in lines:
                     size,path=line.split("\t")
                     size=float(size)
@@ -58,6 +60,7 @@ if (mode!=1):
             os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
                 lines=f.read().splitlines()
+                print(lines)
                 psnr1=eval(lines[6].split(',')[0].split('=')[1])
                 maxrerr1=eval(lines[4].split('=')[1])
             data[j+1][i+1][0]=cr1
@@ -78,6 +81,7 @@ if (mode!=1):
             
             with open ("%s.txt"%pid,"r") as f:
                 lines=f.read().splitlines()
+                print(lines)
                 for line in lines:
                     size,path=line.split("\t")
                     size=float(size)
@@ -92,7 +96,9 @@ if (mode!=1):
             os.system("python3 Autoencoder_Prototype.py -d %s -z 1 -n %s" % (zpath,field))
             os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
+                
                 lines=f.read().splitlines()
+                print(lines)
                 psnr2=eval(lines[6].split(',')[0].split('=')[1])
                 maxrerr2=eval(lines[4].split('=')[1])
             data[j+1][i+1][3]=cr2
@@ -110,6 +116,7 @@ if (mode!=1):
             
             with open ("%s.txt"%pid,"r") as f:
                 lines=f.read().splitlines()
+                print(lines)
                 for line in lines:
                     size,path=line.split("\t")
                     size=float(size)
@@ -125,12 +132,14 @@ if (mode!=1):
             os.system("compareData -f %s %s>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
                 lines=f.read().splitlines()
+                print(lines)
                 psnr3=eval(lines[6].split(',')[0].split('=')[1])
                 maxrerr3=eval(lines[4].split('=')[1])
             data[j+1][i+1][6]=cr3
             data[j+1][i+1][7]=psnr3
             data[j+1][i+1][8]=maxrerr3
             os.system("rm -f %s.txt" % pid)
+            os.system("rm -f %s.*" % filepath)
         os.system("rm -f %s*" % filepath)
 
     np.savetxt("%s_cr1.txt" % output,data[:,:,0],delimiter='\t')
