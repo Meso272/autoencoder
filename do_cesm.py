@@ -18,16 +18,16 @@ if(mode<2):
 if (mode!=1):
     ebs=[1e-2,1e-3]
     #ebs=[i*1e-4 for i in range(1,10,2)]+[i*1e-3 for i in range(1,10,2)]+[i*1e-2 for i in range(1,10,2)]+[0.1]
-    idxrange=[x for x in range(52,63)]
+    idxrange=[x for x in range(52,53)]
 
     pid=str(os.getpid()).strip()
-    data=np.zeros((len(ebs)+1,12,9),dtype=np.float32)
+    data=np.zeros((len(ebs)+1,len(idxrange)+1,9),dtype=np.float32)
     for i in range(9):
         data[1:,0,i]=ebs
         data[0,1:,i]=idxrange
 
-    for i in range(52,63):
-        filename="%s_%d.dat" % (field,i)
+    for i,idx in enumerate(idxrange):
+        filename="%s_%d.dat" % (field,idx)
         filepath=os.path.join(datafolder,filename)
         a=np.fromfile(filepath,dtype=np.float32)
         a=a-np.min(a)
@@ -60,9 +60,9 @@ if (mode!=1):
                 lines=f.read().splitlines()
                 psnr1=eval(lines[6].split(',')[0].split('=')[1])
                 maxrerr1=eval(lines[4].split('=')[1])
-            data[j+1][i-51][0]=cr1
-            data[j+1][i-51][1]=psnr1
-            data[j+1][i-51][2]=maxrerr1
+            data[j+1][i+1][0]=cr1
+            data[j+1][i+1][1]=psnr1
+            data[j+1][i+1][2]=maxrerr1
             os.system("rm -f %s.txt" % pid)    
 
 
@@ -95,9 +95,9 @@ if (mode!=1):
                 lines=f.read().splitlines()
                 psnr2=eval(lines[6].split(',')[0].split('=')[1])
                 maxrerr2=eval(lines[4].split('=')[1])
-            data[j+1][i-51][3]=cr2
-            data[j+1][i-51][4]=psnr2
-            data[j+1][i-51][5]=maxrerr2
+            data[j+1][i+1][3]=cr2
+            data[j+1][i+1][4]=psnr2
+            data[j+1][i+1][5]=maxrerr2
             os.system("rm -f %s.txt" % pid)
 
 
@@ -127,9 +127,9 @@ if (mode!=1):
                 lines=f.read().splitlines()
                 psnr3=eval(lines[6].split(',')[0].split('=')[1])
                 maxrerr3=eval(lines[4].split('=')[1])
-            data[j+1][i-51][6]=cr3
-            data[j+1][i-51][7]=psnr3
-            data[j+1][i-51][8]=maxrerr3
+            data[j+1][i+1][6]=cr3
+            data[j+1][i+1][7]=psnr3
+            data[j+1][i+1][8]=maxrerr3
             os.system("rm -f %s.txt" % pid)
         os.system("rm -f %s*" % filepath)
 
