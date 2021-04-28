@@ -20,10 +20,10 @@ if(mode<2):
 
 
 if (mode!=1):
-    #ebs=[1e-2,1e-3]
-    ebs=[i*1e-4 for i in range(1,10,3)]+[i*1e-3 for i in range(1,10,3)]+[i*1e-2 for i in range(1,10,3)]+[0.1]
-    #idxrange=[x for x in range(52,63)]
-    idxrange=[x for x in range(300,352)]
+    ebs=[1e-2,1e-3]
+    #ebs=[i*1e-4 for i in range(1,10,3)]+[i*1e-3 for i in range(1,10,3)]+[i*1e-2 for i in range(1,10,3)]+[0.1]
+    idxrange=[320]
+    #idxrange=[x for x in range(300,352)]
     pid=str(os.getpid()).strip()
     data=np.zeros((len(ebs)+1,len(idxrange)+1,9),dtype=np.float32)
     for i in range(9):
