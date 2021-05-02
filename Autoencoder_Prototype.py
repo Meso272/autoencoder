@@ -855,7 +855,7 @@ if args.compress != None:
     file_name = args.compress
     is_float=args.float
     print("File to compress: %s" % file_name)
-    print("Error: %f" % args.error)
+    print("Error: %f" % float(args.error))
 
     # Check to ensure that the file for compression exists. If it does not exist, print a message and exit the program.
     file_exists = checkFileExists(file_name)
