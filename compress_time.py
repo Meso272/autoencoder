@@ -10,5 +10,6 @@ for i,field in enumerate(fields):
         comm="python Autoencoder_Prototype.py -c %s -n %s -e %f" % (data[i],field,eb)
         os.system(comm)
         comm="python Autoencoder_Prototype.py -d %s.z -n %s " % (data[i],field)
+        os.system(comm)
 
 
