@@ -221,7 +221,7 @@ def checkFileExists(file_name):
 
 # If the user specified a file for training
 if args.training != None:
-    training_start = time.time()
+    #training_start = time.time()
     last_check_sum = 0.0
     fill_bo_sum = 0.0
     optimizer_sum = 0.0
@@ -374,7 +374,7 @@ if args.training != None:
                     break
     temp2 = time.time()
     fill_bo_sum = temp2 - temp1
- 
+    epoch_time_start=time.clock()
     for epoch in range(training_epochs):
         #print("Epoch %4d" % epoch)
         bar.update(epoch + 1)     # Update the progress bar
@@ -470,6 +470,7 @@ if args.training != None:
             error_F = 0    # if 1 <= error
             error_sum = 0
         '''
+    epoch_time=time.clock()-epoch_time_start
     error_log.close()
 
     # Save the weight matrices and bias vectors
@@ -494,6 +495,7 @@ if args.training != None:
     print("\n\nTraining complete!")
     print("Weight matrices and bias vectors stored in file: %s" % save_path)
     training_end = time.time()
+    print("Epoch time: %f seconds" % epoch_time)
     print("Training time: %f seconds" % (training_end - training_start))
     print("Normalize Data Method: %f seconds" % (normalize_data_method_end - normalize_data_method_start))
     print("Setup Modifications: %f seconds" % (setup_modifications_end - setup_modifications_start))
