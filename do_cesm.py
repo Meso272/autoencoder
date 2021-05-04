@@ -21,8 +21,8 @@ if(mode<2):
 
 if (mode!=1):
     
-    #ebs=[1e-2,1e-3]
-    ebs=[i*1e-4 for i in range(1,10,2)]+[i*1e-3 for i in range(1,10,2)]+[i*1e-2 for i in range(1,10,2)]+[0.1]
+    ebs=[2e-2]
+    #ebs=[i*1e-4 for i in range(1,10,2)]+[i*1e-3 for i in range(1,10,2)]+[i*1e-2 for i in range(1,10,2)]+[0.1]
     #idxrange=[x for x in range(52,53)]
     idxrange=[x for x in range(52,63)]
 
@@ -60,7 +60,7 @@ if (mode!=1):
                         compressedsize+=size
             cr1=origsize/compressedsize
             os.system("rm -f %s.txt" % pid)   
-
+            '''
             os.system("python3 Autoencoder_Prototype.py -d %s -n %s" % (zpath,field))
             os.system("compareData -f %s %s&>%s.txt" % (filepath,dpath,pid))
             with open ("%s.txt"%pid,"r") as f:
@@ -72,7 +72,7 @@ if (mode!=1):
             data[j+1][i+1][1]=psnr1
             data[j+1][i+1][2]=maxrerr1
             os.system("rm -f %s.txt" % pid)    
-
+            '''
             
             a=np.fromfile(dvpath,dtype=np.float16)
             dlength=a.shape[0]
@@ -149,11 +149,11 @@ if (mode!=1):
             os.system("rm -f %s.txt" % pid)
             os.system("rm -f %s.*" % filepath)
         os.system("rm -f %s*" % filepath)
-
+    '''
     np.savetxt("%s_cr1.txt" % output,data[:,:,0],delimiter='\t')
     np.savetxt("%s_psnr1.txt" % output,data[:,:,1],delimiter='\t')
     np.savetxt("%s_maxrerr1.txt" % output,data[:,:,2],delimiter='\t')
-    '''
+    
     np.savetxt("%s_cr2.txt" % output,data[:,:,3],delimiter='\t')
     np.savetxt("%s_psnr2.txt" % output,data[:,:,4],delimiter='\t')
     np.savetxt("%s_maxrerr2.txt" % output,data[:,:,5],delimiter='\t')
